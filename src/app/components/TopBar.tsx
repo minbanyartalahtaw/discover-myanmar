@@ -73,6 +73,7 @@ export default function TopBar() {
           </button>
         </div>
 
+      <div className="flex flex-row items-center">
         <nav
           className={`hidden space-x-6 md:flex ${
             isSearchActive ? "opacity-0" : "opacity-100"
@@ -88,7 +89,7 @@ export default function TopBar() {
         </nav>
 
         <div
-          className={`flex items-center gap-2 ${
+          className={`ml-20 cursor-pointer flex items-center gap-2 ${
             isSearchActive ? "hidden md:flex" : "flex"
           }`}>
           <button
@@ -106,26 +107,9 @@ export default function TopBar() {
           </button>
         </div>
       </div>
+      </div>
 
-      {/*       <div
-        ref={mobileMenuRef}
-        className={`fixed left-0 top-16 z-50 w-full bg-white shadow-lg transition-all duration-200 ease-in-out md:hidden ${
-          isMobileMenuOpen
-            ? "max-h-[300px] opacity-100"
-            : "max-h-0 overflow-hidden opacity-0"
-        }`}>
-        <div className="flex flex-col p-4 ">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="py-3 text-base font-medium text-gray-700 hover:text-gray-900"
-              onClick={() => setIsMobileMenuOpen(false)}>
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </div> */}
+      
 
       {isMobileMenuOpen && (
         <div
