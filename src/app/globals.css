@@ -24,3 +24,31 @@
     @apply cursor-pointer inline-flex items-center px-4 py-2 border border-gray-800 shadow-xl font-semibold rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500;
   }
 }
+
+.desktop-swiper .swiper-button-next,
+.desktop-swiper .swiper-button-prev {
+  color:  rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  background-color: #333;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.desktop-swiper .swiper-button-next:after,
+.desktop-swiper .swiper-button-prev:after {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.desktop-swiper .swiper-pagination-bullet {
+  background-color: #333;
+}
+
+.desktop-swiper .swiper-pagination {
+  bottom: 0;
+}

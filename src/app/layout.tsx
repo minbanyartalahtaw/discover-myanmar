@@ -28,7 +28,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${notoSansMyanmar.className} ${ubuntu.className}`}>
         <TopBar />
-        <div className="h-16"></div>
         {children}
       </body>
     </html>
