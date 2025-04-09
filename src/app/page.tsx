@@ -8,9 +8,15 @@ import { Pagination, Navigation } from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Loading from "./components/Loading";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
 
   // Check if the screen is mobile size
   useEffect(() => {
@@ -29,7 +35,7 @@ export default function Home() {
   }, []);
 
   const categories = [
-    { name: "ကချင်ပြည်နယ်", href: "/kachin", imageSrc: "/kachin.jpg" },
+    { name: "ကချင်ပြည်နယ်", href: "/x", imageSrc: "/kachin.jpg" },
     { name: "ကယားပြည်နယ်", href: "/kayar", imageSrc: "/kayah.jpg" },
     { name: "ကရင်ပြည်နယ်", href: "/kayin", imageSrc: "/kayin.jpg" },
     { name: "ချင်းပြည်နယ်", href: "/chin", imageSrc: "/chin.jpg" },
@@ -45,6 +51,7 @@ export default function Home() {
     { name: "တနင်္သာရီတိုင်းဒေသကြီး", href: "/tanintharyi", imageSrc: "/tanintharyi.jpg" },
   ];
   console.log("categorie", categories[0]);
+  if (loading)  return <Loading skeletonStyle="home" />;
   return (
     <div>
       <div className="h-16"></div>
