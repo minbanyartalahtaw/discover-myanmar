@@ -5,10 +5,10 @@ import Link from "next/link";
 import { Search, X, Menu } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/write-post", label: "Write Post" },
+  { href: "/user/", label: "Home" },
+  { href: "/user/about", label: "About" },
+  { href: "/user/contact", label: "Contact" },
+  { href: "/user/write-post", label: "Write Post" },
 ];
 
 export default function TopBar() {
@@ -43,9 +43,8 @@ export default function TopBar() {
     <div className="border-b border-gray-200 bg-white">
       <div className="mx-auto flex h-16 w-full items-center justify-between px-4 md:px-6 fixed top-0 z-50 bg-white shadow-sm">
         <div
-          className={`transition-opacity ${
-            isSearchActive ? "hidden md:block" : "block"
-          }`}>
+          className={`transition-opacity ${isSearchActive ? "hidden md:block" : "block"
+            }`}>
           <Link href="/" className="text-xl font-medium text-gray-700">
             Discover-Myanmar
           </Link>
@@ -84,9 +83,8 @@ export default function TopBar() {
 
         <div className="flex flex-row items-center">
           <nav
-            className={`hidden space-x-6 md:flex ${
-              isSearchActive ? "opacity-0" : "opacity-100"
-            }`}>
+            className={`hidden space-x-6 md:flex ${isSearchActive ? "opacity-0" : "opacity-100"
+              }`}>
             {navLinks.map((link) => (
               <Link
                 key={link.label}

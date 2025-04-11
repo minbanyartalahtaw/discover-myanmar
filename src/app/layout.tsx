@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_Myanmar, Ubuntu } from "next/font/google";
 
 import "./globals.css";
-import TopBar from "./components/TopBar";
+
 
 const notoSansMyanmar = Noto_Sans_Myanmar({
   subsets: ["myanmar"],
@@ -27,7 +27,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${notoSansMyanmar.className} ${ubuntu.className}`}>
-        <TopBar />
         {children}
       </body>
     </html>
