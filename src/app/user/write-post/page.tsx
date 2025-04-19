@@ -7,82 +7,87 @@ import "react-quill-new/dist/quill.snow.css";
 import Link from "next/link";
 import Loading from "../../components/Loading";
 import { getCategories, getRegion } from "@/app/libs/action";
+import { createPost } from "./action";
 
 interface State {
-  id: number
-  name: string
+  id: number;
+  name: string;
 }
 
 interface Category {
-  id: number
-  name: string,
-  isApprove: boolean
+  id: number;
+  name: string;
+  isApprove: boolean;
 }
 
 export default function PostEditor() {
   const [loading, setLoading] = useState(true);
+  // State for form fields
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [state, setState] = useState("");
-  const [category, setCategory] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [content, setContent] = useState("");
+  const [region, setRegion] = useState("");
+  const [category, setCategory] = useState("");
+  //
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // This state is comming from the server
   const [states, setStates] = useState<State[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    const fetchRegions = async () => {
+    const fetchRegionsAndCatrgories = async () => {
       const regions = await getRegion();
-      setStates(regions);
-    };
-    fetchRegions();
-  }, []);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
       const categories = await getCategories();
+      setStates(regions);
       setCategories(categories);
     };
-    fetchCategories();
-  }, [])
-
-  useEffect(() => {
+    fetchRegionsAndCatrgories();
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  /*   const states = [
-      "ကချင်ပြည်နယ်",
-      "ကယားပြည်နယ်",
-      "ကရင်ပြည်နယ်",
-      "ချင်းပြည်နယ်",
-      "မွန်ပြည်နယ်",
-      "ရခိုင်ပြည်နယ်",
-      "ရှမ်းပြည်နယ်",
-      "ရန်ကုန်တိုင်းဒေသကြီး",
-      "မန္တလေးတိုင်းဒေသကြီး",
-      "မကွေးတိုင်းဒေသကြီး",
-      "စစ်ကိုင်းတိုင်းဒေသကြီး",
-      "ဧရာဝတီတိုင်းဒေသကြီး",
-      "ပဲခူးတိုင်းဒေသကြီး",
-      "တနင်္သာရီတိုင်းဒေသကြီး",
-    ]; */
+  const uploadToCloudinary = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "discover-myanmar"); // Replace with your Cloudinary upload preset
 
-  /*   const categories = [
-      "အထင်ကရပုဂ္ဂိုလ်",
-      "အနုပညာရှင်",
-      "အထင်ကရနေရာ",
-      "သမိုင်းဝင်နေရာ",
-    ]; */
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/dgotgr9jk/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to upload image");
+      }
+      const data = await response.json();
+      return data.secure_url;
+    } catch (error) {
+      console.error("Cloudinary upload error:", error);
+      throw error;
+    }
+  };
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    if (!title.trim()) newErrors.title = "ခေါင်းစဥ်ထည့်ရန်";
-    if (!content.trim()) newErrors.content = "Content is required";
-    if (!state) newErrors.state = "Please Choose State or Region";
-    if (!category) newErrors.category = "Please Choose Category";
-    if (!imagePreview) newErrors.image = "ပုံထည့်ရန်";
+    if (!title.trim()) {
+      newErrors.title = "ခေါင်းစဥ်ထည့်ရန်";
+    }
+    if (!content.trim()) {
+      newErrors.content = "Content is required";
+    }
+    if (!region) {
+      newErrors.state = "Please Choose State or Region";
+    }
+    if (!category) {
+      newErrors.category = "Please Choose Category";
+    }
+    if (!imagePreview) {
+      newErrors.image = "ပုံထည့်ရန်";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -102,23 +107,45 @@ export default function PostEditor() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-
     setIsSubmitting(true);
     try {
-      // Handle form submission here
-      console.log({ title, content, state, category, imagePreview });
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const file = fileInputRef.current?.files?.[0];
+      if (!file) {
+        setErrors((prev) => ({ ...prev, image: "Please select an image" }));
+        return;
+      }
+
+      // Upload image to Cloudinary
+      const imageUrl = await uploadToCloudinary(file);
+
+      // Now submit all form data including the Cloudinary URL
+      const formData = {
+        title,
+        image: imageUrl as string,
+        content,
+        region,
+        category,
+      };
+      await createPost(formData);
+    } catch (error) {
+      console.error("Error during submission:", error);
     } finally {
       setIsSubmitting(false);
+      setTitle("");
+      setImagePreview(null);
+      setContent("");
+      setRegion("");
+      setCategory("");
+      setErrors({});
     }
   };
 
   if (loading) return <Loading skeletonStyle="write-post" />;
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="h-16"></div>
-      <h1 className="text-xl  mb-8 text-gray-800 text-center">ဆောင်းပါးအသစ်ရေးရန်</h1>
+      <h1 className="text-xl  mb-8 text-gray-800 text-center">
+        ဆောင်းပါးအသစ်ရေးရန်
+      </h1>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Title Input */}
@@ -131,10 +158,11 @@ export default function PostEditor() {
               setErrors((prev) => ({ ...prev, title: "" }));
             }}
             placeholder="Post Title"
-            className={`w-full p-2 text-lg font-light border focus:outline-none ${errors.title
-              ? "border-red-500"
-              : "border-gray-200 focus:border-gray-400"
-              }`}
+            className={`w-full p-2 text-lg font-light border focus:outline-none ${
+              errors.title
+                ? "border-red-500"
+                : "border-gray-200 focus:border-gray-400"
+            }`}
           />
           {errors.title && (
             <p className="text-red-500 text-sm mt-1">{errors.title}</p>
@@ -143,13 +171,15 @@ export default function PostEditor() {
 
         {/* Image Upload */}
         <div
-          className={`border-3 border-dashed rounded-lg p-4 text-center cursor-pointer transition ${errors.image
-            ? "border-red-500"
-            : "border-gray-200 hover:border-gray-400"
-            }`}
+          className={`border-3 border-dashed rounded-lg p-4 text-center cursor-pointer transition ${
+            errors.image
+              ? "border-red-500"
+              : "border-gray-200 hover:border-gray-400"
+          }`}
           onClick={() => fileInputRef.current?.click()}>
           <input
             type="file"
+            name="image"
             ref={fileInputRef}
             onChange={handleImageChange}
             accept="image/*"
@@ -230,19 +260,20 @@ export default function PostEditor() {
         <div className="flex flex-col md:flex-row gap-4 mt-20">
           <div className="flex-1">
             <select
-              value={state}
+              value={region}
               onChange={(e) => {
-                setState(e.target.value);
+                setRegion(e.target.value);
                 setErrors((prev) => ({ ...prev, state: "" }));
               }}
-              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${errors.state
-                ? "border-red-500"
-                : "border-gray-300 hover:border-gray-400"
-                } bg-white`}>
+              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${
+                errors.state
+                  ? "border-red-500"
+                  : "border-gray-300 hover:border-gray-400"
+              } bg-white`}>
               <option value="" disabled>
                 တိုင်းနှင့်ပြည်နယ် ရွေးချယ်ပါ
               </option>
-              {states.map((state, index) => (
+              {states.map((state) => (
                 <option key={state.id} value={state.name}>
                   {state.name}
                 </option>
@@ -260,10 +291,11 @@ export default function PostEditor() {
                 setCategory(e.target.value);
                 setErrors((prev) => ({ ...prev, category: "" }));
               }}
-              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${errors.category
-                ? "border-red-500"
-                : "border-gray-300 hover:border-gray-400"
-                } bg-white`}>
+              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${
+                errors.category
+                  ? "border-red-500"
+                  : "border-gray-300 hover:border-gray-400"
+              } bg-white`}>
               <option value="" disabled>
                 အမျိုးအစား ရွေးချယ်ပါ
               </option>
@@ -289,11 +321,7 @@ export default function PostEditor() {
           </Link>
           <button
             type="submit"
-            disabled={isSubmitting}
-            className={`w-full md:w-auto px-6 py-2 text-white font-light rounded-sm transition ${isSubmitting
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gray-800 hover:bg-gray-700"
-              } cursor-pointer`}>
+            className={`w-full md:w-auto px-6 py-2 text-white font-light rounded-sm transition bg-gray-800 hover:bg-gray-700 cursor-pointer`}>
             {isSubmitting ? "posting..." : "Post"}
           </button>
         </div>

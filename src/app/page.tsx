@@ -4,6 +4,7 @@ export default function LandingPage() {
   return (
     <div>
       <h1>Hello World</h1>
+      <p>This Page will be landing Page.</p>
       <Link href={"/user"} className="underline text-blue-700">Go To User</Link>
       <br />
       <Link href={"/admin"} className="underline text-blue-700">Go To Admin</Link>

@@ -9,6 +9,8 @@ export default function Home() {
       <Link className="underline text-blue-700" href="/admin/add-region/" >Go To Add Region</Link>
       <br />
       <Link className="underline text-blue-700" href="/admin/edit-categories/" >Go To Edit Category</Link>
+      <br />
+      <Link className="underline text-blue-700" href="/admin/manage-posts/" >Go To Manage Post</Link>
     </div>
   )
 }

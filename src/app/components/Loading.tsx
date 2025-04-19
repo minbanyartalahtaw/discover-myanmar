@@ -2,7 +2,7 @@
 import React from "react";
 
 interface LoadingProps {
-  skeletonStyle?: "write-post" | "home" | "default";
+  skeletonStyle?: "write-post" | "home" | "default" | "region";
 }
 
 export default function Loading({ skeletonStyle = "default" }: LoadingProps) {
@@ -35,7 +35,7 @@ export default function Loading({ skeletonStyle = "default" }: LoadingProps) {
           </div>
         </div>
 
-                {/* Dropdown Options Skeleton */}
+        {/* Dropdown Options Skeleton */}
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="flex-1">
             <div className="h-4 w-24 bg-gray-200 rounded mb-2"></div>
@@ -84,49 +84,46 @@ export default function Loading({ skeletonStyle = "default" }: LoadingProps) {
             <div className="h-6 w-3/4 bg-gray-200 rounded mb-2"></div>
           </div>
         </div>
+      </div>
+    );
+  }
 
+  // Region page skeleton with 3x3 grid
+  if (skeletonStyle === "region") {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-8 animate-pulse">
+        <div className="mt-35"></div>
+
+        {/* 3x3 Image Grid Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, index) => (
+            <div
+              key={index}
+              className="aspect-square rounded-lg overflow-hidden">
+              <div className="w-full h-full bg-gray-200">
+                {/* Image Placeholder */}
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-gray-300"></div>
+                </div>
+              </div>
+              {/* Image Title Placeholder */}
+              <div className="mt-2 space-y-2">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 
   // Default skeleton (fallback)
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 animate-pulse">
-      <div className="h-6 w-48 bg-gray-200 rounded mb-8"></div>
-
-      {/* Title Input Skeleton */}
-      <div className="w-full h-10 bg-gray-200 rounded mb-8"></div>
-
-      {/* Image Upload Skeleton */}
-      <div className="rounded-lg p-4 mb-8">
-        <div className="h-64 w-full bg-gray-200 rounded flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full bg-gray-300"></div>
-        </div>
-      </div>
-
-      {/* Editor Skeleton */}
-      <div className="space-y-2 mb-8">
-        <div className="h-4 bg-gray-200 rounded w-full"></div>
-        <div className="h-4 bg-gray-200 rounded w-full"></div>
-        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-        <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-        <div className="h-4 bg-gray-200 rounded w-full"></div>
-        <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-      </div>
-
-      {/* Toolbar Skeleton */}
-      <div className="h-10 bg-gray-200 rounded mb-8"></div>
-
-      {/* Dropdown Options Skeleton */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <div className="flex-1 h-12 bg-gray-200 rounded"></div>
-        <div className="flex-1 h-12 bg-gray-200 rounded"></div>
-      </div>
-
-      {/* Submit Button and Link Skeleton */}
-      <div className="flex justify-between items-center">
-        <div className="h-4 w-32 bg-gray-200 rounded"></div>
-        <div className="h-10 w-24 bg-gray-200 rounded"></div>
+    <div className="max-w-2xl mx-auto px-4 py-8 h-screen flex flex-col justify-center">
+      <div className="h-16"></div>
+      <div className="flex items-center justify-center h-full">
+        <div className="h-5 w-5 border-b-2 border-gray-900 rounded-full animate-spin"></div>
       </div>
     </div>
   );
