@@ -19,6 +19,7 @@ CREATE TABLE "Category" (
 CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "isApprove" BOOLEAN NOT NULL DEFAULT false,

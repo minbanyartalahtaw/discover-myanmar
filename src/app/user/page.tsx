@@ -38,6 +38,7 @@ export default function Home() {
       }
     };
     fetchCategories();
+    console.log("Fetch Data");
   }, []);
 
   // Handle responsive layout
@@ -47,6 +48,8 @@ export default function Home() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  console.log(categories);
 
   if (isLoading) return <Loading skeletonStyle="home" />;
 

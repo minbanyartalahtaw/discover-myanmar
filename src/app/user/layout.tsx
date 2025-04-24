@@ -39,7 +39,7 @@ export default function RootLayout({
             <div className="flex items-center">
               <SidebarTrigger className="p-5" />
               <p className="text-xl f p-2  border-gray-200">
-                <a href="/user">Discover Myanmar</a>
+                <a href={`/`}>Discover Myanmar</a>
               </p>
             </div>
 

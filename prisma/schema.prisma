@@ -39,3 +39,4 @@ model Post {
   category Category @relation(fields: [categoryId], references: [id])
 }
 
+

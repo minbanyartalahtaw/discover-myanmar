@@ -3,8 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@tailwind base;
-@tailwind components;
+@tailwind utilities;
 @tailwind utilities;
 
 @layer base {
@@ -30,7 +29,7 @@
 
 .desktop-swiper .swiper-button-next,
 .desktop-swiper .swiper-button-prev {
-  color:  rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   /* background-color: rgba(255, 255, 255, 0.8); */
   background-color: #333;
   border-radius: 50%;

@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
       }
       // Verify the token and handle invalid tokens
       const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-      const { payload } = await jwtVerify(token, secret);
+      await jwtVerify(token, secret);
       return NextResponse.next();
     } catch (error) {
       console.error("Token verification failed:", error);

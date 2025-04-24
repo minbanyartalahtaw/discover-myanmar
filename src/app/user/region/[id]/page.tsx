@@ -37,6 +37,26 @@ export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [limit, setLimit] = useState<number>(1);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch posts and limit in parallel to reduce server calls
+        const [postResponse, limitResponse] = await Promise.all([
+          getPost(regionId, currentGroupId),
+          getLimit(regionId),
+        ]);
+        setPosts(postResponse.data);
+        setLimit(limitResponse.limit);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [regionId, currentGroupId]); // Added dependencies that were missing
+
+  if (isNaN(regionId) || regionId < 1 || regionId > 14) return <InvalidLink />;
+
   /*   const sampleData = [
 
       {
@@ -122,24 +142,6 @@ export default function Home() {
   
     ]; */
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch posts and limit in parallel to reduce server calls
-        const [postResponse, limitResponse] = await Promise.all([
-          getPost(regionId, currentGroupId),
-          getLimit(regionId),
-        ]);
-        setPosts(postResponse.data);
-        setLimit(limitResponse.limit);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [regionId, currentGroupId]); // Add dependencies to prevent unnecessary re-renders
-
   const getPreviousPost = async () => {
     if (currentGroupId <= 1) return;
     setLoading(true);
@@ -150,9 +152,7 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching previous posts:", error);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
+      console.log("Current Group ID:", currentGroupId);
     }
   };
 
@@ -168,8 +168,6 @@ export default function Home() {
     } finally {
     }
   };
-
-  if (isNaN(regionId) || regionId < 1 || regionId > 14) return <InvalidLink />;
 
   // Generate pagination numbers
   const renderPaginationItems = () => {
@@ -244,6 +242,7 @@ export default function Home() {
 
     return items;
   };
+
   const region = [
     "ကချင်ပြည်နယ်",
     "ကယားပြည်နယ်",
@@ -260,7 +259,9 @@ export default function Home() {
     "ပဲခူးတိုင်းဒေသကြီး",
     "တနင်္သာရီတိုင်းဒေသကြီး",
   ];
+
   if (loading) return <Loading />;
+
   return (
     <div className="mx-auto px-4 py-8 max-w-7xl animate-fade-in animate-move-down h-screen">
       <header className="text-center">

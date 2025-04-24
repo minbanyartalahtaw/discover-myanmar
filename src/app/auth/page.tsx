@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { login } from "./action";
 
@@ -76,9 +75,8 @@ export default function Home() {
           setFormData({
             username: "",
             password: "",
-          },)
-        }, 3000)
-
+          });
+        }, 3000);
       } else {
         router.push("/admin");
       }
@@ -101,7 +99,9 @@ export default function Home() {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 mb-1">
                 Username
               </label>
               <input
@@ -110,8 +110,11 @@ export default function Home() {
                 type="text"
                 autoComplete="username"
                 required
-                className={`block w-full rounded-lg border ${errors.username ? "border-red-300 ring-red-300" : "border-gray-300"
-                  } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
+                className={`block w-full rounded-lg border ${
+                  errors.username
+                    ? "border-red-300 ring-red-300"
+                    : "border-gray-300"
+                } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
                 placeholder="Enter your username"
                 value={formData.username}
                 onChange={handleChange}
@@ -121,7 +124,9 @@ export default function Home() {
               )}
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-1">
                 Password
               </label>
               <input
@@ -130,8 +135,11 @@ export default function Home() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className={`block w-full rounded-lg border ${errors.password ? "border-red-300 ring-red-300" : "border-gray-300"
-                  } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
+                className={`block w-full rounded-lg border ${
+                  errors.password
+                    ? "border-red-300 ring-red-300"
+                    : "border-gray-300"
+                } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
@@ -146,13 +154,25 @@ export default function Home() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 text-base font-medium"
-            >
+              className="w-full py-3 text-base font-medium">
               {isLoading ? (
                 <span className="flex items-center justify-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24">
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                   Signing in...
                 </span>

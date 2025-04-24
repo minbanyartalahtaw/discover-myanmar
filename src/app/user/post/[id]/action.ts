@@ -26,33 +26,113 @@ export async function getPost(id: number) {
 }
 
 export async function getRelatedPostPosts(formData: FormData) {
-  // groupId is for group post
-  const groupIdStr = formData.get("groupId");
-  const categoryIdStr = formData.get("categoryId");
-  const regionIdStr = formData.get("regionId");
+  // Extract and validate form data
+  const formValues = {
+    regionId: Number(formData.get("regionId")),
+    categoryId: Number(formData.get("categoryId")),
+    groupId: Number(formData.get("groupId")),
+  };
 
-  const regionId = Number(regionIdStr);
-  const categoryId = Number(categoryIdStr);
-  const groupId = Number(groupIdStr);
-  const data = await prisma.post.findMany({
-    where: {
-      regionId,
-      categoryId,
-      //      isApprove: true,
-    },
-    /*     select: {
-      id: true,
-      title: true,
-      image: true,
-    }, */
-  });
+  // Validate numbers
+  if (Object.values(formValues).some(isNaN)) {
+    throw new Error("Invalid input parameters");
+  }
 
-  // TODO :: group and related post logic come in here
-  console.log(data);
-  console.log(data.length);
+  const POST_LIMIT = 6;
 
-  console.log(groupId, categoryId, regionId);
-  setTimeout(() => {
-    console.log("getRelatedPostPosts");
-  }, 3000);
+  // Fetch all posts in three separate queries for proper sorting
+  const [
+    sameCategoryAndRegion,
+    sameCategoryDifferentRegion,
+    sameRegionDifferentCategory,
+    differentCategoryAndRegion,
+  ] = await Promise.all([
+    // 1. Posts with same category and region
+    prisma.post.findMany({
+      where: {
+        regionId: formValues.regionId,
+        categoryId: formValues.categoryId,
+        isApprove: true,
+      },
+      select: {
+        id: true,
+        title: true,
+        image: true,
+      },
+    }),
+
+    // 2. Posts with same category but different region
+    prisma.post.findMany({
+      where: {
+        categoryId: formValues.categoryId,
+        regionId: { not: formValues.regionId },
+        isApprove: true,
+      },
+      select: {
+        id: true,
+        title: true,
+        image: true,
+      },
+    }),
+    // 3. Posts with same Region and different category
+    prisma.post.findMany({
+      where: {
+        regionId: formValues.categoryId,
+        categoryId: { not: formValues.categoryId },
+        isApprove: true,
+      },
+      select: {
+        id: true,
+        title: true,
+        image: true,
+      },
+    }),
+
+    // 4. Posts with different category and region
+    prisma.post.findMany({
+      where: {
+        AND: [
+          { categoryId: { not: formValues.categoryId } },
+          { regionId: { not: formValues.regionId } },
+          { isApprove: true },
+        ],
+      },
+      select: {
+        id: true,
+        title: true,
+        image: true,
+      },
+    }),
+  ]);
+
+  // Combine all posts in the desired order
+  const allPosts = [
+    ...sameCategoryAndRegion,
+    ...sameCategoryDifferentRegion,
+    ...sameRegionDifferentCategory,
+    ...differentCategoryAndRegion,
+  ];
+
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log(sameCategoryAndRegion);
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log(sameCategoryDifferentRegion);
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log(sameRegionDifferentCategory);
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log(differentCategoryAndRegion);
+
+  // Calculate pagination indexes
+  const startIndex = (formValues.groupId - 1) * POST_LIMIT;
+  const endIndex = startIndex + POST_LIMIT;
+
+  // Get the posts for the requested group
+
+  const paginatedPosts = allPosts.slice(startIndex, endIndex);
+
+  return {
+    posts: paginatedPosts,
+    hasMore: allPosts.length > endIndex,
+    total: allPosts.length,
+  };
 }
