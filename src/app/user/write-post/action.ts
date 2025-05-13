@@ -20,7 +20,6 @@ export async function createPost(prop: Post) {
       name: category,
     },
   });
-  console.log(title, image, content, region, category);
   if (!regionId || !categoryId) return;
   await prisma.post.create({
     data: {

@@ -113,15 +113,6 @@ export async function getRelatedPostPosts(formData: FormData) {
     ...differentCategoryAndRegion,
   ];
 
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-  console.log(sameCategoryAndRegion);
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-  console.log(sameCategoryDifferentRegion);
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-  console.log(sameRegionDifferentCategory);
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-  console.log(differentCategoryAndRegion);
-
   // Calculate pagination indexes
   const startIndex = (formValues.groupId - 1) * POST_LIMIT;
   const endIndex = startIndex + POST_LIMIT;

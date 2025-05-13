@@ -74,9 +74,7 @@ export default function Home() {
         image: data?.image || "/placeholder.png",
       };
       setPost(finalData as Post);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+      setLoading(false);
     };
     fetch();
   }, [postId]);

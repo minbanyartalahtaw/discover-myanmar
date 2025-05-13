@@ -2,7 +2,6 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export async function getPostForAdmin(groupId: number) {
-  console.log(groupId);
   const posts = await prisma.post.findMany({
     where: {
       isApprove: true,
@@ -50,8 +49,6 @@ export async function getPostForAdmin(groupId: number) {
     },
   });
   const totalPages = Math.ceil(totalPosts / 30);
-  console.log(posts);
-  console.log(totalPosts);
   return { posts: posts, totalPages: totalPages };
 }
 

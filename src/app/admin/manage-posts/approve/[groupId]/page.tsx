@@ -101,7 +101,7 @@ export default function UnapproveTable() {
   }
   useEffect(() => {
     fetchData()
-  })
+  }, [fetchData])
   return (
     <div className="max-w-7xl mx-auto p-4">
       <div className="flex items-center gap-2 mb-4">

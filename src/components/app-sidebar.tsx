@@ -25,11 +25,6 @@ const items = [
     icon: PencilLine,
   },
   {
-    title: "About Us",
-    url: "/user/about",
-    icon: Mail,
-  },
-  {
     title: "Contact",
     url: "/user/contact",
     icon: Mail,

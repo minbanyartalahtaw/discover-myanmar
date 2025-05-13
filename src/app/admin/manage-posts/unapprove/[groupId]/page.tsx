@@ -102,7 +102,7 @@ export default function UnapproveTable() {
   }
   useEffect(() => {
     fetchData()
-  })
+  }, [fetchData])
   if (groupId === 0) return <InvalidLink />;
   return (
     <div className="max-w-7xl mx-auto p-4">

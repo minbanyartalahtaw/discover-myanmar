@@ -43,7 +43,7 @@ export default function PostEditor() {
       setCategories(categories);
     };
     fetchRegionsAndCatrgories();
-    setTimeout(() => setLoading(false), 1000);
+    setLoading(false);
   }, []);
 
   const uploadToCloudinary = async (file: File) => {
@@ -142,7 +142,7 @@ export default function PostEditor() {
 
   if (loading) return <Loading skeletonStyle="write-post" />;
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto p-5">
       <h1 className="text-xl  mb-8 text-gray-800 text-center">
         ဆောင်းပါးအသစ်ရေးရန်
       </h1>
@@ -310,7 +310,7 @@ export default function PostEditor() {
         {/* Submit Button */}
         <div className=" flex flex-col justify-between">
           <Link
-            href={"/write-post/rules"}
+            href={"/user/write-post/rules"}
             className=" underline decoration-solid text-red-600 mb-5">
             {" "}
             စည်းကမ်းချက်များ

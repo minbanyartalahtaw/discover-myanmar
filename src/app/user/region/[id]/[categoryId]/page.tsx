@@ -34,7 +34,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, [fetchData]);
 
 
   if (loading) return <Loading skeletonStyle="region" />
