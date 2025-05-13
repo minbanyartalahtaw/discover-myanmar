@@ -9,7 +9,7 @@ export default function Loading({ skeletonStyle = "default" }: LoadingProps) {
   // Write Post skeleton
   if (skeletonStyle === "write-post") {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-8 animate-pulse">
+      <div className="max-w-3xl mx-auto  animate-pulse">
         <div className="h-16"></div>
 
         {/* Title Input Skeleton */}
@@ -58,7 +58,7 @@ export default function Loading({ skeletonStyle = "default" }: LoadingProps) {
   // Home page skeleton
   if (skeletonStyle === "home") {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-8 animate-pulse">
+      <div className="max-w-6xl mx-auto animate-pulse">
         <div className="h-16"></div>
         {/* Hero Section Skeleton */}
         <div className="text-center mb-12">
@@ -91,25 +91,21 @@ export default function Loading({ skeletonStyle = "default" }: LoadingProps) {
   // Region page skeleton with 3x3 grid
   if (skeletonStyle === "region") {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-8 animate-pulse">
-        <div className="mt-35"></div>
+      <div className="max-w-6xl mx-auto py-10 animate-pulse">
+        {/* Title Skeleton */}
+        <div className="text-center pb-8 mb-5 border-b">
+          <div className="h-9 bg-gray-200 rounded w-1/3 mx-auto"></div>
+        </div>
 
-        {/* 3x3 Image Grid Skeleton */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, index) => (
-            <div
-              key={index}
-              className="aspect-square rounded-lg overflow-hidden">
-              <div className="w-full h-full bg-gray-200">
-                {/* Image Placeholder */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-gray-300"></div>
-                </div>
-              </div>
-              {/* Image Title Placeholder */}
-              <div className="mt-2 space-y-2">
+        {/* Grid Layout Skeleton */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-5">
+          {[...Array(9)].map((_, index) => (
+            <div key={index} className="rounded-lg overflow-hidden">
+              {/* Image Placeholder */}
+              <div className="aspect-video w-full bg-gray-200"></div>
+              {/* Title Placeholder */}
+              <div className="mt-3">
                 <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
               </div>
             </div>
           ))}
@@ -120,7 +116,7 @@ export default function Loading({ skeletonStyle = "default" }: LoadingProps) {
 
   // Default skeleton (fallback)
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 h-screen flex flex-col justify-center">
+    <div className="max-w-2xl mx-auto  flex flex-col justify-center">
       <div className="h-16"></div>
       <div className="flex items-center justify-center h-full">
         <div className="h-5 w-5 border-b-2 border-gray-900 rounded-full animate-spin"></div>

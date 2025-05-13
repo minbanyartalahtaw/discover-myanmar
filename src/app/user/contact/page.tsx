@@ -35,8 +35,8 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-neutral-100">
-      <div className="relative w-[95%] max-w-[500px] mx-auto px-4 sm:px-0">
+    <div className="flex justify-center items-center">
+      <div className="relative w-[95%] max-w-[500px] mx-auto px-4 sm:px-0 mt-20">
         {/* Toast notification */}
         {showToast && (
           <div className="fixed top-4 right-4 bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 shadow-md transition-all duration-300 max-w-xs z-50">
@@ -116,11 +116,10 @@ export default function ContactForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-2 px-4 rounded-md text-white font-medium ${
-                  isSubmitting
-                    ? "bg-neutral-400 cursor-not-allowed"
-                    : "bg-black hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
-                } transition-colors duration-200`}>
+                className={`w-full py-2 px-4 rounded-md text-white font-medium ${isSubmitting
+                  ? "bg-neutral-400 cursor-not-allowed"
+                  : "bg-black hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
+                  } transition-colors duration-200`}>
                 {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </div>

@@ -142,7 +142,7 @@ export default function PostEditor() {
 
   if (loading) return <Loading skeletonStyle="write-post" />;
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="max-w-2xl mx-auto">
       <h1 className="text-xl  mb-8 text-gray-800 text-center">
         ဆောင်းပါးအသစ်ရေးရန်
       </h1>
@@ -158,11 +158,10 @@ export default function PostEditor() {
               setErrors((prev) => ({ ...prev, title: "" }));
             }}
             placeholder="Post Title"
-            className={`w-full p-2 text-lg font-light border focus:outline-none ${
-              errors.title
-                ? "border-red-500"
-                : "border-gray-200 focus:border-gray-400"
-            }`}
+            className={`w-full p-2 text-lg font-light border focus:outline-none ${errors.title
+              ? "border-red-500"
+              : "border-gray-200 focus:border-gray-400"
+              }`}
           />
           {errors.title && (
             <p className="text-red-500 text-sm mt-1">{errors.title}</p>
@@ -171,11 +170,10 @@ export default function PostEditor() {
 
         {/* Image Upload */}
         <div
-          className={`border-3 border-dashed rounded-lg p-4 text-center cursor-pointer transition ${
-            errors.image
-              ? "border-red-500"
-              : "border-gray-200 hover:border-gray-400"
-          }`}
+          className={`border-3 border-dashed rounded-lg p-4 text-center cursor-pointer transition ${errors.image
+            ? "border-red-500"
+            : "border-gray-200 hover:border-gray-400"
+            }`}
           onClick={() => fileInputRef.current?.click()}>
           <input
             type="file"
@@ -265,11 +263,10 @@ export default function PostEditor() {
                 setRegion(e.target.value);
                 setErrors((prev) => ({ ...prev, state: "" }));
               }}
-              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${
-                errors.state
-                  ? "border-red-500"
-                  : "border-gray-300 hover:border-gray-400"
-              } bg-white`}>
+              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${errors.state
+                ? "border-red-500"
+                : "border-gray-300 hover:border-gray-400"
+                } bg-white`}>
               <option value="" disabled>
                 တိုင်းနှင့်ပြည်နယ် ရွေးချယ်ပါ
               </option>
@@ -291,11 +288,10 @@ export default function PostEditor() {
                 setCategory(e.target.value);
                 setErrors((prev) => ({ ...prev, category: "" }));
               }}
-              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${
-                errors.category
-                  ? "border-red-500"
-                  : "border-gray-300 hover:border-gray-400"
-              } bg-white`}>
+              className={`w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none ${errors.category
+                ? "border-red-500"
+                : "border-gray-300 hover:border-gray-400"
+                } bg-white`}>
               <option value="" disabled>
                 အမျိုးအစား ရွေးချယ်ပါ
               </option>

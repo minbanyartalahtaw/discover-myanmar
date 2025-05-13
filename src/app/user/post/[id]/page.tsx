@@ -108,8 +108,8 @@ export default function Home() {
         <div className="overflow-hidden rounded-sm shadow-lg ">
           <Image
             src={`${post.image}`}
-            width={700}
-            height={700}
+            width={500}
+            height={500}
             alt="wd"
             className="hover:scale-110 transition-transform duration-300"
           />

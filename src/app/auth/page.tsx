@@ -66,17 +66,6 @@ export default function Home() {
           username: "Invalid username",
           password: "Invalid password",
         });
-
-        setTimeout(() => {
-          setErrors({
-            username: "",
-            password: "",
-          });
-          setFormData({
-            username: "",
-            password: "",
-          });
-        }, 3000);
       } else {
         router.push("/admin");
       }
@@ -110,11 +99,10 @@ export default function Home() {
                 type="text"
                 autoComplete="username"
                 required
-                className={`block w-full rounded-lg border ${
-                  errors.username
+                className={`block w-full rounded-lg border ${errors.username
                     ? "border-red-300 ring-red-300"
                     : "border-gray-300"
-                } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
+                  } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
                 placeholder="Enter your username"
                 value={formData.username}
                 onChange={handleChange}
@@ -135,11 +123,10 @@ export default function Home() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className={`block w-full rounded-lg border ${
-                  errors.password
+                className={`block w-full rounded-lg border ${errors.password
                     ? "border-red-300 ring-red-300"
                     : "border-gray-300"
-                } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
+                  } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}

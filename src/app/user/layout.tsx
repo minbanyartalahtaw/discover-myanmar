@@ -64,8 +64,9 @@ export default function RootLayout({
                 </CommandGroup>
               </CommandList>
             </CommandDialog>
-            <div className="h-20"></div>
-            {children}
+            <div className="mt-20">
+              {children}
+            </div>
           </div>
         </main>
       </SidebarProvider>

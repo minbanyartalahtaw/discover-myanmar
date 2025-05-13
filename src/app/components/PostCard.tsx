@@ -3,44 +3,37 @@ import Link from "next/link";
 
 interface PostCardProps {
   title: string;
-  description?: string;
   imageSrc: string;
   href: string;
 }
 
 export function PostCard({
   title,
-  description,
   imageSrc,
   href,
 }: PostCardProps) {
   return (
     <Link
       href={href}
-      className="group relative block h-full overflow-hidden rounded-xl shadow-lg z-index-0 transition-all duration-300 hover:shadow-xl">
-      <div className="relative h-80 w-full overflow-hidden">
+      className="group relative block h-full overflow-hidden rounded-lg bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
         <Image
           src={imageSrc || "/placeholder.png"}
           alt={title}
           fill
-          className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.2]"
+          className="object-cover transition-transform duration-700 ease-out will-change-transform group-hover:scale-105"
           priority
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20 opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-50 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
-      <div className="absolute bottom-0 left-0 w-full p-8">
-        <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-light tracking-wider text-white/90 transition-all duration-300 group-hover:text-white">
+      <div className="absolute bottom-0 left-0 w-full p-6 translate-y-4 transition-transform duration-300 group-hover:translate-y-0">
+        <div className="overflow-hidden">
+          <h3 className="text-xl font-medium text-white transform-gpu transition-transform duration-300">
             {title}
           </h3>
         </div>
-        {description && (
-          <p className="mt-3 max-w-md overflow-hidden text-sm font-light text-white/70 opacity-0 transition-all duration-300 group-hover:opacity-100">
-            {description}
-          </p>
-        )}
-        <div className="mt-4 h-[1px] w-0 bg-white/30 transition-all duration-300 group-hover:w-full" />
+        <div className="mt-3 h-[2px] w-12 bg-white/40 transition-all duration-300 group-hover:w-24 group-hover:bg-white" />
       </div>
     </Link>
   );

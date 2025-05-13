@@ -38,7 +38,7 @@ export default function Home() {
       }
     };
     fetchCategories();
-    console.log("Fetch Data");
+
   }, []);
 
   // Handle responsive layout
@@ -49,15 +49,15 @@ export default function Home() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  console.log(categories);
+
 
   if (isLoading) return <Loading skeletonStyle="home" />;
 
   return (
-    <div className="min-h-screen">
+    <div>
       {/* Header Section */}
       <header className="text-center my-10">
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+        <h1 className="text-2xl md:text-5xl font-bold text-gray-800 mb-6">
           မင်္ဂလာပါ
         </h1>
         <p
@@ -98,7 +98,7 @@ const MobileView = ({ categories }: { categories: Category[] }) => (
         <div className="transform transition duration-300 hover:scale-105">
           <LocationCard
             title={category.name}
-            href={`/user/region/${category.id}`}
+            href={`/user/region/${category.id}/1`}
             imageSrc={category.imageSrc}
             contentCount={category.contentCount}
           />
@@ -128,7 +128,7 @@ const DesktopView = ({ categories }: { categories: Category[] }) => (
                 <div key={index} className="transform transition duration-300 ">
                   <LocationCard
                     title={category.name}
-                    href={`/user/region/${category.id}/`}
+                    href={`/user/region/${category.id}/1`}
                     imageSrc={category.imageSrc}
                     contentCount={category.contentCount}
                   />
