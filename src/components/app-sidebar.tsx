@@ -1,4 +1,4 @@
-import { BookOpen, PencilLine, Mail, User } from "lucide-react";
+import { BookOpen, PencilLine, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -15,20 +15,16 @@ import {
 // Menu items.
 const items = [
   {
-    title: "Read Posts",
+    title: "စာဖတ်ရန်",
     url: "/user",
     icon: BookOpen,
   },
   {
-    title: "Write Post",
+    title: "စာရေးရန်",
     url: "/user/write-post",
     icon: PencilLine,
   },
-  {
-    title: "Contact",
-    url: "/user/contact",
-    icon: Mail,
-  },
+
 ];
 
 export function AppSidebar() {

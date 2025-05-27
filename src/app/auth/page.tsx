@@ -80,7 +80,7 @@ export default function Home() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className=" text-center text-3xl font-extrabold text-gray-900">
             Please Login To Admin Account
           </h2>
         </div>
@@ -100,8 +100,8 @@ export default function Home() {
                 autoComplete="username"
                 required
                 className={`block w-full rounded-lg border ${errors.username
-                    ? "border-red-300 ring-red-300"
-                    : "border-gray-300"
+                  ? "border-red-300 ring-red-300"
+                  : "border-gray-300"
                   } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
                 placeholder="Enter your username"
                 value={formData.username}
@@ -124,8 +124,8 @@ export default function Home() {
                 autoComplete="current-password"
                 required
                 className={`block w-full rounded-lg border ${errors.password
-                    ? "border-red-300 ring-red-300"
-                    : "border-gray-300"
+                  ? "border-red-300 ring-red-300"
+                  : "border-gray-300"
                   } px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:text-sm`}
                 placeholder="Enter your password"
                 value={formData.password}

@@ -34,7 +34,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
 
   if (loading) return <Loading skeletonStyle="region" />
@@ -169,7 +169,7 @@ export default function Page() {
 
 const NoPost = () => {
   return (
-    <div className="max-w-7xl min-h-[80vh] flex flex-col items-center justify-center gap-6 p-4 border-2 mx-auto">
+    <div className="max-w-7xl min-h-[80vh] flex flex-col items-center justify-center gap-6 p-4  mx-auto">
       <p className="text-gray-600 text-center">You can start writing posts about this region</p>
       <Button
         variant={"outline"}

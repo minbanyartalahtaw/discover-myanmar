@@ -23,22 +23,25 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [hasFetched, setHasFetched] = useState(false);
+
+  const fetchCategories = async () => {
+    if (hasFetched) return;
+    try {
+      // data comming from backend {id : 1, name: "ကချင်ပြည်နယ်", contentCount: 10, imageSrc: "/kachin.jpg"}
+      const rawData = await getRegionAndContentCount();
+      setCategories(rawData);
+      setIsLoading(false);
+      setHasFetched(true);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+      setIsLoading(false);
+    }
+  };
 
   // Fetch categories data from backend
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        // data comming from backend {id : 1, name: "ကချင်ပြည်နယ်", contentCount: 10, imageSrc: "/kachin.jpg"}
-        const rawData = await getRegionAndContentCount();
-        setCategories(rawData);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Failed to fetch categories:", error);
-        setIsLoading(false);
-      }
-    };
     fetchCategories();
-
   }, []);
 
   // Handle responsive layout
@@ -61,9 +64,9 @@ export default function Home() {
           မင်္ဂလာပါ
         </h1>
         <p
-          className="text-sm md:text-xl text-gray-600 animate-fade-in-up 
-                             transition-all duration-500 hover:text-gray-800 
-                             leading-relaxed tracking-wide">
+          className="p-10 lg:p-0 text-xs sm:text-sm md:text-lg text-gray-600 
+                    animate-fade-in-up transition-all duration-500 hover:text-gray-800 
+                    leading-relaxed tracking-wide">
           မြန်မာနိုင်ငံ၏ သမိုင်းနှင့်ယဉ်ကျေးမှုး၊ အထင်ကရနေရာများ၊
           ဒေသဆိုင်ရာအကြောင်းအရာများ ကိုလေ့လာဖတ်ရှုနိုင်ပါသည်။
         </p>

@@ -24,7 +24,7 @@ import Link from "next/link";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { useParams } from "next/navigation";
 import { getPostForAdmin, notAllowPost } from "./action";
-import { BackButton } from "@/app/components/BackButton";
+
 
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
@@ -101,13 +101,31 @@ export default function UnapproveTable() {
   }
   useEffect(() => {
     fetchData()
-  }, [fetchData])
+  }, [])
   return (
     <div className="max-w-7xl mx-auto p-4">
       <div className="flex items-center gap-2 mb-4">
-        <BackButton className="bg-[#333]" />
+        <Link
+          href="/admin/"
+          className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-colors duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back
+        </Link>
       </div>
-      <h3 className="text-2xl font-bold tracking-tight mb-6 text-gray-900">Manage Post</h3>
+      <h3 className="mt-13 text-2xl font-bold tracking-tight mb-6 text-gray-900">Manage Post</h3>
       <div className="relative">
         <Link href={'/admin/manage-posts/unapprove/1'}>
           <Button variant={"outline"}>Unapprove</Button>
