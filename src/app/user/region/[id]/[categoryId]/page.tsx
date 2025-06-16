@@ -41,10 +41,10 @@ export default function Page() {
   if (posts.length === 0) return <NoPost />;
   return (
     <div className="max-w-6xl mx-auto py-10">
-      <h1 className="text-center pb-8 mb-5 text-3xl border-b">{region}</h1>
+      <h1 className="text-center pb-8 mb-5 text-2xl border-b">{region}</h1>
 
       <div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 p-0 lg:p-5 lg:gap-5">
           {posts.map((post) => (
             <PostCard
               key={post.id}

@@ -11,6 +11,8 @@ export default function Home() {
       <Link className="underline text-blue-700" href="/admin/edit-categories/" >Go To Edit Category</Link>
       <br />
       <Link className="underline text-blue-700" href="/admin/manage-posts/unapprove/1" >Go To Manage Post</Link>
+      <br />
+      <Link className="underline text-blue-700" href="/user" >User Page</Link>
     </div>
   )
 }

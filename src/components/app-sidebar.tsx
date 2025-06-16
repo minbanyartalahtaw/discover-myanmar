@@ -29,7 +29,7 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar >
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -48,7 +48,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        {/* // TODO : Side Bar Not Stick To The Bottom */}
+
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>

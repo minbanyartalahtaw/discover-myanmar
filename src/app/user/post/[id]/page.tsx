@@ -102,7 +102,7 @@ export default function Home() {
 
   return (
     <div className="p-5 w-screen">
-      <div className="max-w-7xl flex flex-col items-center border-b-2 mx-auto">
+      <div className="max-w-7xl flex flex-col items-center  mx-auto">
         <div className="overflow-hidden rounded-sm shadow-lg ">
           <Image
             src={`${post.image}`}
@@ -134,75 +134,29 @@ export default function Home() {
             day: "2-digit",
           }).format(new Date(post.createdAt))}
         </p>
-        <div className="flex justify-end gap-4 my-4 w-full">
+        <div className="flex justify-center gap-4 my-4 w-full">
           <Button
-            variant="outline"
+            id="shareButton"
+            variant="secondary"
             className="group relative"
             onClick={() => {
               navigator.clipboard.writeText(window.location.href);
-              const button = document.getElementById("copyButton");
-              if (button) {
-                button.classList.add("animate-bounce");
+              const shareButton = document.getElementById("shareButton");
+              if (shareButton) {
+                shareButton.textContent = "Copied!";
                 setTimeout(() => {
-                  button.classList.remove("animate-bounce");
-                }, 1000);
+                  shareButton.textContent = "Share";
+                }, 2000);
               }
             }}
-            id="copyButton">
-            <span className="opacity-0 group-hover:opacity-100 absolute -top-8 bg-black text-white text-xs px-2 py-1 rounded transition-opacity duration-200">
-              Copy Post Link
-            </span>
+          >
             Share
           </Button>
         </div>
       </div>
 
-      {/* Related Post */}
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl font-bold mt-10 mb-4 text-center">
-          Related Post
-        </h1>
-        {/*         <div className="flex flex-col justify-center max-w-6xl mx-auto px-4 py-8s">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-3 w-full">
-            {relatedPosts.map((relatedPost, index) => (
-              <div
-                key={index}
-                className={`transform transition duration-300 hover:shadow-md rounded-lg overflow-hidden h-full min-w-full`}>
-                <PostCard
-                  key={index}
-                  title={relatedPost.title}
-                  href={`/user/post/${relatedPost.id}`}
-                  imageSrc={relatedPost.image}
-                />
-              </div>
-            ))}
-          </div>
-          <Button
-            disabled={groupId === 7}
-            variant={"outline"}
-            className={`
-              mt-5
-              w-60
-              mx-auto
-              ${loadMore ? "animate-fade animate-infinite" : ""}
-            `.trim()}
-            onClick={getMorePost}>
-            {loadMore ? "Loading..." : "Load More"}
-          </Button>
-        </div> */}
-      </div>
 
-      {/* Read Post button */}
-      <div className="flex justify-center my-12">
-        <Button
-          variant="outline"
-          className="px-8 py-6 rounded-full border-2 border-primary shadow-sm transition-all duration-300 hover:shadow-md hover:scale-105 group"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <span className="text-lg font-medium group-hover:text-primary">
-            Read Post
-          </span>
-        </Button>
-      </div>
+
 
       {/* Scroll to top button */}
       {showScrollTop && (

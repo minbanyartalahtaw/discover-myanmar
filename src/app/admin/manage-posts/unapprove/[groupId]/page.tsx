@@ -475,7 +475,8 @@ const SheetPage = ({ post }: { post: Post }) => {
               <Button
                 variant="default"
                 onClick={async () => {
-                  await allowPost(post.id)
+                  await allowPost(post.id);
+                  window.location.reload();
                 }}
               >
                 Approve Post

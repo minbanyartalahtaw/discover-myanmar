@@ -487,7 +487,8 @@ const SheetPage = ({ post }: { post: Post }) => {
               <Button
                 variant="default"
                 onClick={async () => {
-                  await notAllowPost(post.id)
+                  await notAllowPost(post.id);
+                  window.location.reload();
                 }}
               >
                 Not Allow Post
